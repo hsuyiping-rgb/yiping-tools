@@ -1,0 +1,4 @@
+﻿interface:
+  display_name: "Firebase Setup"
+  short_description: "Install Firebase MCP and deploy Firestore rules"
+  default_prompt: "Use $firebase-setup to connect this project to Firebase and prepare Firestore rules."

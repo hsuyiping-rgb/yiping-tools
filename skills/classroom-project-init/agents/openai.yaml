@@ -1,0 +1,4 @@
+﻿interface:
+  display_name: "Classroom Project Init"
+  short_description: "Initialize classroom tools projects and notes"
+  default_prompt: "Use $classroom-project-init to initialize a classroom tools repo with GitHub and notes."
