@@ -84,3 +84,21 @@ python -X utf8 C:\Users\vm\.codex\skills\.system\skill-creator\scripts\quick_val
 ```powershell
 Remove-Item -LiteralPath ".git\AUTO_MERGE.lock" -Force
 ```
+
+### 10. Firebase MCP 呼叫逾時，但 Firestore REST 讀寫正常
+
+**現象**：Codex 中的 Firebase MCP 工具已載入，但 `firebase_get_project`、`firestore_list_collections` 呼叫超過 120 秒逾時。
+
+**確認方式**：先用 Firebase CLI 確認專案可見，再用 Firestore REST 在 `wordcloud_words` 建立、讀回、刪除測試文件。若 REST 測試成功，代表 Firestore 資料庫與安全規則正常，問題在 Codex MCP 啟動或代理設定。
+
+**修正**：把 `C:\Users\vm\.codex\config.toml` 的 Firebase MCP 設定改回 Firebase CLI 官方啟動方式：
+
+```toml
+[mcp_servers.firebase]
+command = "npx.cmd"
+args = ["-y", "firebase-tools@latest", "mcp"]
+startup_timeout_sec = 60
+tool_timeout_sec = 120
+```
+
+修改後需要完整重啟 Codex，新的 MCP 設定才會載入。
